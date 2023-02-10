@@ -26,10 +26,8 @@ export function SearchForm () {
             return;
         }
 
-        const countries = await getCountriesByLanguage('batman');
+        const countries = await getCountriesByLanguage(searchBy);
         debugger
-
-        alert('Search by: ' + searchBy);
     }
 
     return (
