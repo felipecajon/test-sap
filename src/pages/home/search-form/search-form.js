@@ -5,12 +5,15 @@ import "@ui5/webcomponents/dist/features/InputSuggestions"
 import "@ui5/webcomponents-icons/dist/search";
 import _ from 'lodash';
 import { useState } from "react";
-import { getCountriesByLanguage } from "../../../Services/language-services";
+import { getCountriesByLanguage } from "../../../services/language-services";
+import { useDispatch } from "react-redux";
+import { getCountries } from "../../../store/countries/countries-slice";
 
 
 export function SearchForm () {
     const [searchBy, setSearchBy] = useState('');
-
+    const _useDispatch = useDispatch();
+    
     const handlerChange = event => {
         const { value } = event.target;
         setSearchBy(value)
@@ -26,8 +29,8 @@ export function SearchForm () {
             return;
         }
 
-        const countries = await getCountriesByLanguage(searchBy);
-        debugger
+        // const countries = await getCountriesByLanguage(searchBy);
+        _useDispatch(getCountries(searchBy));
     }
 
     return (

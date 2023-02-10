@@ -2,11 +2,19 @@ import "@ui5/webcomponents/dist/Table.js";
 import "@ui5/webcomponents/dist/TableColumn.js";
 import "@ui5/webcomponents/dist/TableRow.js";
 import "@ui5/webcomponents/dist/TableCell.js";
+import { useSelector } from "react-redux";
 
 export function SearchResult () {
+    const { countries } = useSelector(rootReducer => rootReducer.countriesReducer);
 
     return (
         <div className="search-result mt-4">
+            {countries && countries.map(contry => (
+                <div>
+                    {contry.name}
+                </div>
+            ))}
+
             <ui5-table class="demo-table" id="table">
                 <ui5-table-column slot="columns">
                     <span>Product</span>
