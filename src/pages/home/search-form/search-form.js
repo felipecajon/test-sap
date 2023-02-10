@@ -1,27 +1,21 @@
 import "@ui5/webcomponents/dist/Input"
-// import "@ui5/webcomponents/dist/Button"
+import "@ui5/webcomponents/dist/Button"
 // import "@ui5/webcomponents/dist/SuggestionItem"
-import "@ui5/webcomponents/dist/features/InputSuggestions"
+// import "@ui5/webcomponents/dist/features/InputSuggestions"
+import "@ui5/webcomponents/dist/features/InputElementsFormSupport"
 import "@ui5/webcomponents-icons/dist/search";
 import _ from 'lodash';
-import { useState } from "react";
-import { getCountriesByLanguage } from "../../../services/language-services";
 import { useDispatch } from "react-redux";
 import { getCountries } from "../../../store/countries/countries-slice";
 
-
-export function SearchForm () {
-    const [searchBy, setSearchBy] = useState('');
+export function SearchForm (props) {
     const _useDispatch = useDispatch();
-    
-    const handlerChange = event => {
-        const { value } = event.target;
-        setSearchBy(value)
-        
-    }
 
-    const search = async () => {
+    const handlerMovieFormSubmit = event => {
+        event.preventDefault();
         const $input = document.getElementById("searchInput");
+        const searchBy = event.target.name.value;
+
         $input.setAttribute("value-state", '');
 
         if (_.isEmpty(searchBy)) {
@@ -29,9 +23,8 @@ export function SearchForm () {
             return;
         }
 
-        // const countries = await getCountriesByLanguage(searchBy);
         _useDispatch(getCountries(searchBy));
-    }
+    };
 
     return (
         <div className="search-container">
@@ -41,19 +34,21 @@ export function SearchForm () {
                 Search by language...
             </p>
 
-            <div className="row">
-                <div className="col-9">
-                    <ui5-input class="w-100" id="searchInput" placeholder="Enter search criteria ..." onInput={handlerChange} >
-                        {/* <div slot="valueStateMessage">This is an error message. Extra long text used as an error message.</div> */}
+            <form className="mt-3" onSubmit={handlerMovieFormSubmit} noValidate>
+                <div className="row">
+                    <div className="col-9">
+                        <ui5-input class="w-100" id="searchInput" placeholder="Enter search criteria ..." name="name">
+                            {/* <div slot="valueStateMessage">This is an error message. Extra long text used as an error message.</div> */}
 
-                        <ui5-icon id="search" slot="icon" name="search"></ui5-icon>
-                    </ui5-input>
-                </div>
+                            <ui5-icon id="search" slot="icon" name="search"></ui5-icon>
+                        </ui5-input>
+                    </div>
 
-                <div className="col-3">
-                    <ui5-button design="Emphasized" onClick={search}>Subscribe</ui5-button>
+                    <div className="col-3">
+                        <ui5-button design="Emphasized" submits="true" >Subscribe</ui5-button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     )
 }
