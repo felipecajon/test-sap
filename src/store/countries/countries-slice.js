@@ -33,7 +33,7 @@ const countriesSlice = createSlice({
         
         builder.addCase(getCountries.rejected, (state, action) => {
             state.loading = false;
-            state.countries = null;
+            state.countries = [];
             state.error = action.error.message;
         })
     }
