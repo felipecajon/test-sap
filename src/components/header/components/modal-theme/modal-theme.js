@@ -3,7 +3,7 @@ import { Button, Select, Option, Dialog} from '@ui5/webcomponents-react';
 import { useRef } from 'react';
 
 export const ModalSelectTheme = props => {
-    const dialogRef = useRef(null);
+    const dialogRef = useRef('theme-modal');
     setTheme('sap_horizon');
 
     const handlerChangeTheme = e => {
@@ -17,7 +17,7 @@ export const ModalSelectTheme = props => {
     return (
         <div>
             <Dialog id={props.uid} ref={dialogRef} headerText="Dialog Header">
-                <Select onChange={handlerChangeTheme}>
+                <Select onChange={handlerChangeTheme} className="w-100">
                     <Option value="sap_horizon">SAP Horizon</Option>
                     <Option value="sap_horizon_dark">SAP Horizon dark</Option>
                     <Option value="sap_horizon_hcb">SAP Horizon hcb</Option>

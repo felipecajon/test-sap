@@ -1,10 +1,12 @@
-import { Button, Table, Dialog, TableColumn, TableRow, TableCell, Label} from '@ui5/webcomponents-react';
+import { Button, Table, Dialog, TableColumn, TableRow, TableCell, Label, MessageStrip} from '@ui5/webcomponents-react';
 import { useSelector } from "react-redux";
 import "@ui5/webcomponents-icons/dist/flag";
+import { useRef } from 'react';
 
 
 
 export function SearchResult () {
+    const dialogFlagRef = useRef('flag-modal');
     const { countries, loading, pristine, searchBy } = useSelector(rootReducer => rootReducer.countriesReducer);
     
     const openFlag = (contryName, flagSrc) => {
@@ -15,8 +17,8 @@ export function SearchResult () {
         flag.setAttribute('src', flagSrc)
 
         setTimeout(() => {
-            dialog.show(); 
-        }, 200);
+            dialogFlagRef.current.show();
+        }, 50);
     }
 
     const closeModal = () => {
@@ -26,7 +28,7 @@ export function SearchResult () {
 
     return (
         <div>
-            <Dialog id="modal-flag" header-text="Flag" draggable="true">
+            <Dialog id="modal-flag" ref={dialogFlagRef} header-text="Flag" draggable="true">
                 <img id="flag" alt="" />
 
                 <div slot="footer"	className="dialog-footer mt-2">
@@ -98,9 +100,9 @@ export function SearchResult () {
             ) : ''}
 
             {!loading && !pristine && !countries.length && (
-                <ui5-message-strip design="Warning" class="mt-3 text-center" hide-close-button="true">
+                <MessageStrip design="Warning" hide-close-button="true" className="mt-3 text-center">
                     No country found by: <strong>{searchBy}</strong>
-                </ui5-message-strip>
+                </MessageStrip>
             )}
         </div>
     )

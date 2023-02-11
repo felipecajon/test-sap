@@ -15,7 +15,7 @@ export function SearchForm (props) {
         $input.setAttribute("value-state", '');
 
         if (_.isEmpty(searchBy)) {
-            $input.setAttribute("value-state", 'Error')
+            $input.setAttribute("value-state", 'Error');
             return;
         }
 
@@ -33,7 +33,9 @@ export function SearchForm (props) {
             <form className="mt-3" onSubmit={handlerMovieFormSubmit} noValidate>
                 <Grid>
                     <div data-layout-span="XL9 L9 M12 S12">
-                        <Input icon={<Icon name="search" />} className="w-100" id="searchInput" placeholder="Enter search criteria (Ex.: pt, es, en) ..." name="name" />
+                        <Input icon={<Icon name="search" />} className="w-100" id="searchInput" placeholder="Enter search criteria (Ex.: pt, es, en) ..." name="name">
+                            <div slot="valueStateMessage">Required Field</div>
+                        </Input>
                     </div>
 
                     <div data-layout-span="XL3 L3 M12 S12">
