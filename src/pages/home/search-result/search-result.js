@@ -1,4 +1,4 @@
-import { Button, Table, Icon, Dialog, TableColumn, TableRow, TableCell, Label} from '@ui5/webcomponents-react';
+import { Button, Table, Dialog, TableColumn, TableRow, TableCell, Label} from '@ui5/webcomponents-react';
 import { useSelector } from "react-redux";
 import "@ui5/webcomponents-icons/dist/flag";
 
@@ -40,7 +40,7 @@ export function SearchResult () {
 
             {!loading && countries && countries.length ? (
                 <div className="search-result mt-4">
-                    <Table columns={
+                    <Table stickyColumnHeader="true" columns={
                         <>
                             <TableColumn style={{width: '12rem'}}>
                                 <Label>Country</Label>
@@ -102,8 +102,6 @@ export function SearchResult () {
                     No country found by: <strong>{searchBy}</strong>
                 </ui5-message-strip>
             )}
-
-            
         </div>
     )
 }
