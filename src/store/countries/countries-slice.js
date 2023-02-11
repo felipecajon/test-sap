@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
+import { CONFIG } from "../../CONFIG";
 
 const initialState = {
     loading: false,
@@ -10,7 +11,7 @@ const initialState = {
 };
 
 export const getCountries = createAsyncThunk("countries/getCountries", async language => {
-    const response = await axios.get(`http://localhost:3000/api/countries?lang=${language}`);
+    const response = await axios.get(`${CONFIG.baseURL}/countries?lang=${language}`);
     return response.data;    
 });
 

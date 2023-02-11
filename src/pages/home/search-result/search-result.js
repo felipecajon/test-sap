@@ -65,7 +65,7 @@ export function SearchResult () {
                         }>
 
                         {countries && countries.map((country, index) => (
-                            <TableRow>
+                            <TableRow key={index}>
                                 <TableCell>
                                     <Label>
                                         {country.name}

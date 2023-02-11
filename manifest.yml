@@ -1,0 +1,8 @@
+applications:
+  - name: test-sap
+    path: ./
+    buildpacks:
+      - nodejs_buildpack
+    memory: 1024M
+    command: npx serve ./build
+    random-route: true 
