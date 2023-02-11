@@ -1,13 +1,8 @@
-import "@ui5/webcomponents/dist/Table.js";
-import "@ui5/webcomponents/dist/TableColumn.js";
-import "@ui5/webcomponents/dist/TableRow.js";
-import "@ui5/webcomponents/dist/TableCell.js";
-import "@ui5/webcomponents-icons/dist/flag";
-import "@ui5/webcomponents/dist/MessageStrip";
-import "@ui5/webcomponents/dist/BusyIndicator.js";
-import "@ui5/webcomponents/dist/Dialog";
-
+import { Button, Table, Icon, Dialog, TableColumn, TableRow, TableCell, Label} from '@ui5/webcomponents-react';
 import { useSelector } from "react-redux";
+import "@ui5/webcomponents-icons/dist/flag";
+
+
 
 export function SearchResult () {
     const { countries, loading, pristine, searchBy } = useSelector(rootReducer => rootReducer.countriesReducer);
@@ -24,13 +19,20 @@ export function SearchResult () {
         }, 200);
     }
 
+    const closeModal = () => {
+        const dialog = document.getElementById("modal-flag");
+        dialog.close();
+    }
+
     return (
         <div>
+            <Dialog id="modal-flag" header-text="Flag" draggable="true">
+                <img id="flag" alt="" />
 
-            <ui5-dialog id="modal-flag" header-text="Flag" value-state="Success">
-                <img id="flag" />
-            </ui5-dialog>
-
+                <div slot="footer"	className="dialog-footer mt-2">
+                    <Button id="closeDialogButton" design="Emphasized" onClick={closeModal}>Close</Button>
+                </div>
+            </Dialog>
 
             <div className={`text-center mt-5 ${loading ? '' : 'd-none'}`}>
                 <ui5-busy-indicator active size="Medium"></ui5-busy-indicator>
@@ -38,39 +40,60 @@ export function SearchResult () {
 
             {!loading && countries && countries.length ? (
                 <div className="search-result mt-4">
-                    <ui5-table class="demo-table" id="table">
-                        <ui5-table-column slot="columns">
-                            <span>Country</span>
-                        </ui5-table-column>
-        
-                        <ui5-table-column slot="columns" min-width="800">
-                            <span>Capital</span>
-                        </ui5-table-column>
-        
-                        <ui5-table-column slot="columns" min-width="600" popin-text="Dimensions" demand-popin class="table-header-text-alignment">
-                            <span>Region</span>
-                        </ui5-table-column>
-        
-                        <ui5-table-column slot="columns" min-width="600" popin-text="Weight" demand-popin class="table-header-text-alignment">
-                            <span>Subregion</span>
-                        </ui5-table-column>
-        
-                        <ui5-table-column slot="columns" max-width="100" popin-text="Weight" demand-popin class="table-header-text-alignment">
+                    <Table columns={
+                        <>
+                            <TableColumn style={{width: '12rem'}}>
+                                <Label>Country</Label>
+                            </TableColumn>
                             
-                        </ui5-table-column>
-        
+                            <TableColumn minWidth={800} popinText="Supplier">
+                                <Label>Capital</Label>
+                            </TableColumn>
+                            
+                            <TableColumn demandPopin minWidth={600} popinText="Dimensions">
+                                <Label>Region</Label>
+                            </TableColumn>
+                            
+                            <TableColumn demandPopin minWidth={600} popinText="Weight">
+                                <Label>Subregion</Label>
+                            </TableColumn>
+                            
+                            <TableColumn></TableColumn>
+                        </>
+                        }>
+
                         {countries && countries.map((country, index) => (
-                            <ui5-table-row key={index}>
-                                <ui5-table-cell>{country.name}</ui5-table-cell>
-                                <ui5-table-cell>{country.capital}</ui5-table-cell>
-                                <ui5-table-cell>{country.region}</ui5-table-cell>
-                                <ui5-table-cell>{country.subregion}</ui5-table-cell>
-                                <ui5-table-cell>
-                                    <ui5-button icon="flag" onClick={() => openFlag(country.name, country.flags.png)}> Open Flag </ui5-button>
-                                </ui5-table-cell>
-                            </ui5-table-row>
+                            <TableRow>
+                                <TableCell>
+                                    <Label>
+                                        {country.name}
+                                    </Label>
+                                </TableCell>
+
+                                <TableCell>
+                                    <Label>
+                                        {country.capital}
+                                    </Label>
+                                </TableCell>
+                                
+                                <TableCell>
+                                    <Label>
+                                        {country.region}
+                                    </Label>
+                                </TableCell>
+                                
+                                <TableCell>
+                                    <Label>
+                                        {country.subregion}
+                                    </Label>
+                                </TableCell>
+                                
+                                <TableCell>
+                                    <Button icon="flag"  onClick={() => openFlag(country.name, country.flags.png)}> Open Flag </Button>
+                                </TableCell>
+                            </TableRow>
                         ))}
-                    </ui5-table>
+                    </Table>
                 </div>
             ) : ''}
 
