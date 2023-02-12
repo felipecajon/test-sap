@@ -1,0 +1,18 @@
+{
+    "authenticationMethod": "route",
+    "routes": [{
+        "source": "^(.*)$",
+        "target": "$1",
+        "authenticationType": "xsuaa",
+        "destination": "countries-destination-front"
+    }],
+    "cors" : [{
+        "uriPattern": "^(.*)$",
+        "allowedOrigin": [
+            {
+            "host": "*.cfapps.us10-001.hana.ondemand.com",
+            "protocol": "https"
+            }
+        ]
+    }]
+}

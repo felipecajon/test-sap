@@ -1,8 +1,40 @@
 applications:
-  - name: test-sap
-    path: ./
+  - name: test-sap-front
+    path: ./app-countries-front
     buildpacks:
       - nodejs_buildpack
     memory: 1024M
+    disk-quota: 2048M
     command: npx serve ./build
-    random-route: true 
+    random-route: true
+    services:
+      - Destinations
+      - xsuaa-test-sap-back-nest 
+    routes:
+      - route: test-sap-front.cfapps.us10-001.hana.ondemand.com
+    
+    # Application Router
+  - name: app-router-front
+    routes:
+      - route: app-router-test-sap-front.cfapps.us10-001.hana.ondemand.com
+    path: ./app-router
+    buildpacks:
+      - nodejs_buildpack
+    memory: 128M
+    env:
+      destinations: >
+        [
+          {
+            "name":"countries-destination-front",
+            "url":"https://test-sap-front.cfapps.us10-001.hana.ondemand.com",
+            "forwardAuthToken": true
+          },
+          {
+            "name":"countries-destination",
+            "url":"https://test-sap-back-nest.cfapps.us10-001.hana.ondemand.com",
+            "forwardAuthToken": true
+          }
+        ]
+    services:
+        - Destinations
+        - xsuaa-test-sap-back-nest
