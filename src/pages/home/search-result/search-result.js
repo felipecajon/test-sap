@@ -3,8 +3,6 @@ import { useSelector } from "react-redux";
 import "@ui5/webcomponents-icons/dist/flag";
 import { useRef } from 'react';
 
-
-
 export function SearchResult () {
     const dialogFlagRef = useRef('flag-modal');
     const { countries, loading, pristine, searchBy } = useSelector(rootReducer => rootReducer.countriesReducer);
@@ -91,7 +89,7 @@ export function SearchResult () {
                                 </TableCell>
                                 
                                 <TableCell>
-                                    <Button icon="flag"  onClick={() => openFlag(country.name, country.flags.png)}> Open Flag </Button>
+                                    <Button icon="flag"  onClick={() => openFlag(country.name, country.flag)}> Open Flag </Button>
                                 </TableCell>
                             </TableRow>
                         ))}
