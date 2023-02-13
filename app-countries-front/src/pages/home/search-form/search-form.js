@@ -1,10 +1,11 @@
 import _ from 'lodash';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getCountries } from "../../../store/countries/countries-slice";
 import { Grid, Button, Icon, Input } from '@ui5/webcomponents-react';
 import "@ui5/webcomponents/dist/features/InputElementsFormSupport.js";
 
 export function SearchForm (props) {
+    const { user } = useSelector(rootReducer => rootReducer.loginReducer);
     const _useDispatch = useDispatch();
 
     const handlerMovieFormSubmit = event => {
@@ -19,7 +20,7 @@ export function SearchForm (props) {
             return;
         }
 
-        _useDispatch(getCountries(searchBy));
+        _useDispatch(getCountries({lang: searchBy, user}));
     };
 
     return (

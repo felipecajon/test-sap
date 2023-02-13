@@ -10,19 +10,21 @@ const initialState = {
     searchBy: ''
 };
 
-export const getCountries = createAsyncThunk("countries/getCountries", async language => {
-    const response = await axios.get(`${CONFIG.baseURL}/countries?lang=${language}`);
+export const getCountries = createAsyncThunk("countries/getCountries", async ({lang, user}) => {
+    const headersConfig = {
+        headers: {
+            'Authorization': `Bearer ${user.access_token}`,
+        } 
+    };
+
+    const response = await axios.get(`${CONFIG.baseURL}/countries?lang=${lang}`, headersConfig);
     return response.data;    
 });
 
 const countriesSlice = createSlice({
     name: 'countries',
     initialState,
-    reducers: {
-        // getcountries: (state, action) => {
-        //     state.countries = action.payload
-        // }
-    },
+    reducers: {},
     extraReducers: builder => {
         builder.addCase(getCountries.pending, state => {
             state.loading = true;
