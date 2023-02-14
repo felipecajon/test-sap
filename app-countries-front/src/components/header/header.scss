@@ -6,6 +6,23 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        flex-wrap: wrap;
+
+        @media all and (max-width: 1024px) {
+            .logo-sap {
+                order: 1;
+            }
+
+            .logo-ntt {
+                order: 2;
+            }
+
+            .btn-change-theme {
+                order: 3;
+                width: 100%;
+                margin-top: 12px;
+            }
+        }
     }
 
     .logo-sap {

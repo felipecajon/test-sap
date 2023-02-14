@@ -21,10 +21,12 @@ export const Header = () => {
                 <img src={logoSAP} alt="" className="logo-sap"/>
 
                 {isLogged && (
-                    <Button icon="customize" design="Emphasized" onClick={openModalSelectTheme}>Change Theme</Button>
+                    <Button className="btn-change-theme" icon="customize" design="Emphasized" onClick={openModalSelectTheme}>Change Theme</Button>
                 )}
 
-                <IconNTTData color="#070f26" size="140"></IconNTTData>
+                <span className="logo-ntt">
+                    <IconNTTData color="#070f26" size="140"></IconNTTData>
+                </span>
             </div>
 
             <ModalSelectTheme uid={uidSelectThemeModal}></ModalSelectTheme>
