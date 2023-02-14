@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import { useDispatch, useSelector } from "react-redux";
-import { getCountries } from "../../../store/countries/countries-slice";
 import { Grid, Button, Icon, Input } from '@ui5/webcomponents-react';
 import "@ui5/webcomponents/dist/features/InputElementsFormSupport.js";
+import { getCountries } from '../../../services/countries-services';
 
 export function SearchForm (props) {
     const { user } = useSelector(rootReducer => rootReducer.loginReducer);

@@ -1,6 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from 'axios';
-import { CONFIG } from "../../CONFIG";
+import { createSlice } from "@reduxjs/toolkit";
+import { getCountries } from "../../services/countries-services";
 
 const initialState = {
     loading: false,
@@ -9,17 +8,6 @@ const initialState = {
     pristine: true,
     searchBy: ''
 };
-
-export const getCountries = createAsyncThunk("countries/getCountries", async ({lang, user}) => {
-    const headersConfig = {
-        headers: {
-            'Authorization': `Bearer ${user.access_token}`,
-        } 
-    };
-
-    const response = await axios.get(`${CONFIG.baseURL}/countries?lang=${lang}`, headersConfig);
-    return response.data;    
-});
 
 const countriesSlice = createSlice({
     name: 'countries',

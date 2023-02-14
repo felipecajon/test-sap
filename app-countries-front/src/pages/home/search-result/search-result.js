@@ -6,7 +6,7 @@ import "@ui5/webcomponents-icons/dist/flag";
 export function SearchResult () {
     const dialogFlagRef = useRef('flag-modal');
     const { countries, loading, pristine, searchBy } = useSelector(rootReducer => rootReducer.countriesReducer);
-    console.log(!loading && countries && countries.length);
+
     const openFlag = (contryName, flagSrc) => {
         const dialog = document.getElementById("modal-flag");
         const flag = document.getElementById("flag");
