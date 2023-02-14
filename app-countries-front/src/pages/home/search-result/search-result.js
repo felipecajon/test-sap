@@ -1,12 +1,12 @@
-import { Button, Table, Dialog, TableColumn, TableRow, TableCell, Label, MessageStrip} from '@ui5/webcomponents-react';
+import { Button, Table, Dialog, TableColumn, TableRow, TableCell, Label, MessageStrip, BusyIndicator} from '@ui5/webcomponents-react';
 import { useSelector } from "react-redux";
-import "@ui5/webcomponents-icons/dist/flag";
 import { useRef } from 'react';
+import "@ui5/webcomponents-icons/dist/flag";
 
 export function SearchResult () {
     const dialogFlagRef = useRef('flag-modal');
     const { countries, loading, pristine, searchBy } = useSelector(rootReducer => rootReducer.countriesReducer);
-    
+    console.log(!loading && countries && countries.length);
     const openFlag = (contryName, flagSrc) => {
         const dialog = document.getElementById("modal-flag");
         const flag = document.getElementById("flag");
@@ -35,7 +35,7 @@ export function SearchResult () {
             </Dialog>
 
             <div className={`text-center mt-5 ${loading ? '' : 'd-none'}`}>
-                <ui5-busy-indicator active size="Medium"></ui5-busy-indicator>
+                <BusyIndicator active size="Medium"></BusyIndicator>
             </div>
 
             {!loading && countries && countries.length ? (

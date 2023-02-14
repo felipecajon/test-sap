@@ -36,15 +36,15 @@ const countriesSlice = createSlice({
             state.countries = action.payload;
             state.error = '';
             state.pristine = false;
-            state.searchBy = action.meta.arg;
+            state.searchBy = action.meta.arg.lang;
         })
         
         builder.addCase(getCountries.rejected, (state, action) => {
             state.loading = false;
-            state.countries = [];
+            state.countries = []
             state.error = action.error.message;
             state.pristine = false;
-            state.searchBy = action.meta.arg;
+            state.searchBy = action.meta.arg.lang;
         })
     }
 });

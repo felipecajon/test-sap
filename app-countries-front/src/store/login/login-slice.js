@@ -3,26 +3,25 @@ import axios from 'axios';
 import { CONFIG } from "../../CONFIG";
 
 const initialState = {
+    pristine: true,
     loading: false,
     user: {},
     error: '',
+    isLogged: false
 };
 
-export const getLogin = createAsyncThunk("user/getLogin", async (email, pw) => {
-    const url = 'https://23672ab4trial.authentication.us10.hana.ondemand.com/oauth/token?grant_type=password&username=paulo.arantes@bs.nttdata.com&password=S@pNtt2023';
+export const getLogin = createAsyncThunk("user/getLogin", async (payload) => {
+    payload.email = 'paulo.arantes@bs.nttdata.com';
+    payload.pw = 'S@pNtt2023';
+    
+    const url = `${CONFIG.authenticationURL}&username=${payload.email}&password=${payload.pw}`;
     const headersConfig = {
         headers: {
             'Authorization': 'Basic c2ItdGVzdC1zYXAtYmFjay1uZXN0IXQxMzI2MjE6RjkxcUNncmdpZEV5ZjF4eEREb1BnclNRQWdvPQ==',
         } 
     };
 
-    const body = {
-        'grant_type': 'password',
-        'username': 'paulo.arantes@bs.nttdata.com',
-        'password': 'S@pNtt2023'
-    };
-
-    const response = await axios.post(url, body, headersConfig);
+    const response = await axios.get(url,headersConfig);
     return response.data;   
 });
 
@@ -39,12 +38,16 @@ const userSlice = createSlice({
             state.loading = false;
             state.user = action.payload;
             state.error = '';
+            state.isLogged = true;
+            state.pristine = false;
         })
         
         builder.addCase(getLogin.rejected, (state, action) => {
             state.loading = false;
             state.user = {};
             state.error = action.error.message;
+            state.isLogged = false;
+            state.pristine = false;
         })
     }
 });
