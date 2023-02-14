@@ -14,18 +14,24 @@ export const FormLogin = props => {
         event.preventDefault();
         const $email = document.getElementById("email");
         const $pw = document.getElementById("pw");
+        const $reqEmail = document.getElementById("req-email");
+        const $reqPW = document.getElementById("req-pw");
         let isOk = true;
 
         $email.setAttribute("value-state", '');
         $pw.setAttribute("value-state", '');
+        $reqEmail.setAttribute('class', 'd-none');
+        $reqPW.setAttribute('class', 'd-none');
 
         if (_.isEmpty($email.value)) {
             $email.setAttribute("value-state", 'Error');
+            $reqEmail.setAttribute('class', '');
             isOk = isOk && false;
         }
 
         if (_.isEmpty($pw.value)) {
             $pw.setAttribute("value-state", 'Error');
+            $reqPW.setAttribute('class', '');
             isOk = isOk && false;
         }
 
@@ -43,13 +49,13 @@ export const FormLogin = props => {
                 <Grid>
                     <div data-layout-span="XL12 L12 M12 S12">
                         <Input type="Email" icon={<Icon name="email" />} className="w-100" id="email" placeholder="Email..." name="email">
-                            <div slot="valueStateMessage">Required Field</div>
+                            <div id="req-email" className='d-none' slot="valueStateMessage">Required Field</div>
                         </Input>
                     </div>
 
                     <div data-layout-span="XL12 L12 M12 S12">
                         <Input type="Password" icon={<Icon name="locked" />} className="w-100" id="pw" placeholder="Password..." name="pw">
-                            <div slot="valueStateMessage">Required Field</div>
+                            <div id="req-pw" className='d-none' slot="valueStateMessage">Required Field</div>
                         </Input>
                     </div>
                 </Grid>

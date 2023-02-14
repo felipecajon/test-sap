@@ -2,7 +2,7 @@ import "./header.scss"
 import logoSAP from '../../assets/medias/img/logo-sap.png';
 import { IconNTTData } from "../icons/logoNTTData/logo-nttdata";
 import { Button } from '@ui5/webcomponents-react';
-import "@ui5/webcomponents-icons/dist/account";
+import "@ui5/webcomponents-icons/dist/customize";
 import { useSelector } from "react-redux";
 import { ModalSelectTheme } from "./components/modal-theme/modal-theme";
 
