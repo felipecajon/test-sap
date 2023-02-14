@@ -4,7 +4,7 @@ import "@ui5/webcomponents-icons/dist/locked";
 import "@ui5/webcomponents-icons/dist/email";
 import "./form-login.scss";
 import { useDispatch, useSelector } from 'react-redux';
-import { getLogin } from '../../store/login/login-slice';
+import { getLogin } from '../../services/auth-services';
 
 export const FormLogin = props => {
     const { pristine } = useSelector(rootReducer => rootReducer.loginReducer);
