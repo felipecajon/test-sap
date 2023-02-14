@@ -3,9 +3,6 @@ import axios from "axios";
 import { CONFIG } from "../CONFIG";
 
 export const getLogin = createAsyncThunk("user/getLogin", async (payload) => {
-    payload.email = 'paulo.arantes@bs.nttdata.com';
-    payload.pw = 'S@pNtt2023';
-    
     const url = `${CONFIG.authenticationURL}&username=${payload.email}&password=${payload.pw}`;
     const headersConfig = {
         headers: {
